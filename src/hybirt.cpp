@@ -125,7 +125,7 @@ int main()
     magnetic_init(B, *layout);
     boundary_condition->fill(B);
 
-    // Faraday<dimension> faraday{layout, dt};  // TODO uncomment when Faraday is implemented
+    Faraday<dimension> faraday{layout, dt};  // TODO uncomment when Faraday is implemented
     Ampere<dimension> ampere{layout};
     Ohm<dimension> ohm{layout};
     Boris<dimension> push{layout, dt};

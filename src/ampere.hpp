@@ -24,6 +24,13 @@ public:
         if constexpr (dimension == 1)
         {
             // TODO your code here
+            for(auto xi = m_grid->dual_dom_start(Direction::X)+1; xi < m_grid->dual_dom_end(Direction::X); ++xi )
+            {
+                J.x(xi) = ((B.z(xi-1) - B.z(xi+1)) - (B.y(xi - 1) - B.y(xi + 1))) / (2 * dx); 
+                J.y(xi) = ((B.x(xi-1) - B.x(xi+1)) - (B.z(xi - 1) - B.z(xi + 1))) / (2 * dx); 
+                J.z(xi) = ((B.y(xi-1) - B.y(xi+1)) - (B.x(xi - 1) - B.x(xi + 1))) / (2 * dx); 
+            }
+
         }
         else
             throw std::runtime_error("Ampere not implemented for this dimension");
