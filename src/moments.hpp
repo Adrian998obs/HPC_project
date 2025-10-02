@@ -39,12 +39,20 @@ void bulk_velocity(std::vector<Population<dimension>> const& populations, Field<
     {
         for (auto ix = 0; ix < N.data().size(); ++ix)
         {
-            V.x(ix) += pop.flux().x(ix) / N(ix);
-            V.y(ix) += pop.flux().y(ix) / N(ix);
-            V.z(ix) += pop.flux().z(ix) / N(ix);
+            V.x(ix) += pop.flux().x(ix);
+            V.y(ix) += pop.flux().y(ix);
+            V.z(ix) += pop.flux().z(ix);
         }
     }
-    // TODO calculate bulk velocity by dividing by density N
+    for (auto ix = 0; ix < N.data().size(); ++ix)
+    {
+        if (N(ix) > 0)
+        {
+            V.x(ix) /= N(ix);
+            V.y(ix) /= N(ix);
+            V.z(ix) /= N(ix);
+        }
+    }
 }
 
 #endif

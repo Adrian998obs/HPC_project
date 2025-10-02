@@ -21,18 +21,20 @@ class Faraday
             throw std::runtime_error("GridLayout is null");
     }
 
-    void operator()(VecField<dimension> const& B, VecField<dimension>& E)
+    void operator()(VecField<dimension> const& B, VecField<dimension>& Bnew, VecField<dimension>& E)
     {
         auto const dx = m_grid->cell_size(Direction::X);
 
         if constexpr (dimension == 1)
         {
-            // TODO your code here
-            for(auto xi = m_grid->dual_dom_start(Direction::X)+1; xi < m_grid->dual_dom_end(Direction::X); ++xi )
+            for(auto ix = m_grid->primal_dom_start(Direction::X); ix <= m_grid->primal_dom_end(Direction::X); ++ix )
             {
-                B.x(xi) -= m_dt * ( (E.z(xi +1) - E.z(xi - 1)) - (E.y(xi -1) - E.y(xi -1)) ) / (2 * dx) ; 
-                B.y(xi) -= m_dt * ( (E.x(xi +1) - E.x(xi - 1)) - (E.z(xi -1) - E.z(xi -1)) ) / (2 * dx) ; 
-                B.z(xi) -= m_dt * ( (E.y(xi +1) - E.y(xi - 1)) - (E.x(xi -1) - E.x(xi -1)) ) / (2 * dx) ; 
+                Bnew.x(ix) = B.x(ix) ; 
+            }
+            for (auto ix = m_grid->dual_dom_start(Direction::X); ix <= m_grid->dual_dom_end(Direction::X); ++ix )
+            {
+                Bnew.y(ix) = B.y(ix) + m_dt * (E.z(ix + 1) - E.z(ix -1))  / (2 * dx) ; 
+                Bnew.z(ix) = B.z(ix) - m_dt * (E.y(ix +1) - E.y(ix - 1)) / (2 * dx) ; 
             }
 
         }
