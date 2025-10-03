@@ -7,7 +7,6 @@ set(SOURCES test_ampere_faraday.cpp
     ${CMAKE_SOURCE_DIR}/src/vecfield.hpp
     ${CMAKE_SOURCE_DIR}/src/field.hpp
     ${CMAKE_SOURCE_DIR}/src/gridlayout.hpp
-    ${CMAKE_SOURCE_DIR}/src/boundary_condition.hpp
 )
 add_executable(${PROJECT_NAME} ${SOURCES})
 target_link_libraries(${PROJECT_NAME} PRIVATE HighFive)

@@ -19,7 +19,7 @@ void test_population()
 
     std::array<std::size_t, dimension> grid_size = {100};
     std::array<double, dimension> cell_size      = {0.2};
-    auto constexpr nbr_ghosts                    = 1;
+    auto constexpr nbr_ghosts                    = 0;
     auto constexpr nppc                          = 10000;
     auto layout = std::make_shared<GridLayout<dimension>>(grid_size, cell_size, nbr_ghosts);
 

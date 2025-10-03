@@ -23,14 +23,14 @@ public:
 
         if constexpr (dimension == 1)
         {
-            for(auto ix = m_grid->primal_dom_start(Direction::X); ix <= m_grid->primal_dom_end(Direction::X); ++ix )
+            for(auto ix = m_grid->dual_dom_start(Direction::X); ix <= m_grid->dual_dom_end(Direction::X); ++ix )
             {
                 J.x(ix) = 0.0; 
             }
-            for (auto ix = m_grid->dual_dom_start(Direction::X); ix <= m_grid->dual_dom_end(Direction::X); ++ix)
+            for (auto ix = m_grid->primal_dom_start(Direction::X); ix <= m_grid->primal_dom_end(Direction::X); ++ix)
             {
-                J.y(ix) = - (B.z(ix + 1) - B.z(ix - 1)) / (2 * dx); 
-                J.z(ix) = (B.y(ix+1) - B.y(ix-1))  / (2 * dx); 
+                J.y(ix) = - (B.z(ix) - B.z(ix - 1)) /  dx; 
+                J.z(ix) = (B.y(ix) - B.y(ix - 1))  / dx; 
             }
 
         }

@@ -33,8 +33,8 @@ class Faraday
             }
             for (auto ix = m_grid->dual_dom_start(Direction::X); ix <= m_grid->dual_dom_end(Direction::X); ++ix )
             {
-                Bnew.y(ix) = B.y(ix) + m_dt * (E.z(ix + 1) - E.z(ix -1))  / (2 * dx) ; 
-                Bnew.z(ix) = B.z(ix) - m_dt * (E.y(ix +1) - E.y(ix - 1)) / (2 * dx) ; 
+                Bnew.y(ix) = B.y(ix) + m_dt * (E.z(ix + 1) - E.z(ix))  / dx ; 
+                Bnew.z(ix) = B.z(ix) - m_dt * (E.y(ix +1) - E.y(ix)) / dx ; 
             }
 
         }
